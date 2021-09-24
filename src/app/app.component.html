@@ -1,6 +1,17 @@
 <div>
     <div class="form-group">
-        <button type="submit" class="btn btn-success" (click)="getData()">Get Employees</button>
+        <button class="btn btn-success" (click)="getData()">Get Employees</button>
+    </div>
+    <div>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="firstName" />
+        </div>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="lastName" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" (click)="saveData()">Save</button>
+        </div>
     </div>
     <div>
 

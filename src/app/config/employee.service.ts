@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class EmployeeService {
-    httpClient: any;
-    constructor(private http: HttpClient) {
-        this.httpClient = http;
-    }
+    constructor(private http: HttpClient) {}
 
     getEmployees() {
-        return this.httpClient.get('http://localhost:3000/employees');
+        return this.http.get('http://localhost:3000/employees');
+    }
+    saveData(data) {
+        return this.http.post('http://localhost:3000/saveData', data);
     }
 
 }

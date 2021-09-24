@@ -10,12 +10,14 @@ import {EmployeeService} from "./config/employee.service";
 })
 export class AppComponent {
     displayedColumns: string[] = ['Emp ID', 'first name', 'last name', 'symbol'];
-    employees = [];
+    employees:any = [];
     totalPages = [];
     itemsPerPage = 10;
     start = 0;
     end = 10;
     currentPage = 1;
+    firstName = '';
+    lastName = '';
     constructor(private employeeService: EmployeeService) {}
     getData() {
         this.employeeService.getEmployees().subscribe((response) => {
@@ -31,5 +33,18 @@ export class AppComponent {
             this.start = (this.currentPage-1) * this.itemsPerPage;
             this.end = page * this.itemsPerPage;
         }
+    }
+
+    saveData() {
+        if (!this.firstName || !this.lastName) {
+            return;
+        }
+        let data = {
+            firstname: this.firstName,
+            lastname: this.lastName,
+        };
+        this.employeeService.saveData(data).subscribe((response) => {
+            console.log(response);
+        });
     }
 }
