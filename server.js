@@ -1,12 +1,16 @@
 const express = require("express");
-const csv=require('csvtojson')
-const api = express.Router();
+const csv=require('csvtojson');
+const cors=require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
+app.use(bodyParser.json());
+//app.use(cors);
 
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.all("/*", function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     next();
 });
 
@@ -21,7 +25,9 @@ app.use('/employees', async function (req, res) {
     const jsonArray=await csv().fromFile(csvFilePath);
     res.json(jsonArray);
 });
-
+app.post('/saveData', async function (req, res) {
+    res.json(req.body);
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
